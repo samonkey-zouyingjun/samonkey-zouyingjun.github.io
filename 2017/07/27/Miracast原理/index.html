@@ -90,15 +90,32 @@
 
 
 
-<meta name="description" content="打开hexo世界的大门">
-<meta property="og:type" content="website">
-<meta property="og:title" content="邹越的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="#Android Wi-Fi Display（Miracast）介绍2012年11月中旬，Google发布了Android 4.2。虽然它和android 4.1同属Jelly Bean系列，但却添加了很多新的功能。其中，在显示部分，Android 4.2在Project Butter基础上再接再厉，新增了对Wi-Fi Display功能的支持。由此也导致整个显示架构发生了较大的变化。本文首先介绍">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Miracast原理">
+<meta property="og:url" content="http://yoursite.com/2017/07/27/Miracast原理/index.html">
 <meta property="og:site_name" content="邹越的博客">
-<meta property="og:description" content="打开hexo世界的大门">
+<meta property="og:description" content="#Android Wi-Fi Display（Miracast）介绍2012年11月中旬，Google发布了Android 4.2。虽然它和android 4.1同属Jelly Bean系列，但却添加了很多新的功能。其中，在显示部分，Android 4.2在Project Butter基础上再接再厉，新增了对Wi-Fi Display功能的支持。由此也导致整个显示架构发生了较大的变化。本文首先介绍">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478712_8403.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478739_2291.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478758_9825.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478788_3356.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478805_4074.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478824_6904.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478840_5925.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478857_7139.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478872_3803.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478888_7208.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478903_7919.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478917_9353.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478917_9353.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478932_9334.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478945_6837.png">
+<meta property="og:updated_time" content="2017-07-27T08:30:19.204Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="邹越的博客">
-<meta name="twitter:description" content="打开hexo世界的大门">
+<meta name="twitter:title" content="Miracast原理">
+<meta name="twitter:description" content="#Android Wi-Fi Display（Miracast）介绍2012年11月中旬，Google发布了Android 4.2。虽然它和android 4.1同属Jelly Bean系列，但却添加了很多新的功能。其中，在显示部分，Android 4.2在Project Butter基础上再接再厉，新增了对Wi-Fi Display功能的支持。由此也导致整个显示架构发生了较大的变化。本文首先介绍">
+<meta name="twitter:image" content="http://img.my.csdn.net/uploads/201301/06/1357478712_8403.png">
 
 
 
@@ -126,13 +143,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/27/Miracast原理/"/>
 
 
 
 
 
-  <title>邹越的博客</title>
+  <title>Miracast原理 | 邹越的博客</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -158,9 +175,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -253,9 +268,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -281,9 +296,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/07/27/Miracast原理/" itemprop="url">Miracast原理</a></h1>
+          <h1 class="post-title" itemprop="name headline">Miracast原理</h1>
         
 
         <div class="post-meta">
@@ -330,9 +343,7 @@
       
 
       
-        
-          
-            <p>#Android Wi-Fi Display（Miracast）介绍<br>2012年11月中旬，Google发布了Android 4.2。虽然它和android 4.1同属Jelly Bean系列，但却添加了很多新的功能。其中，在显示部分，Android 4.2在Project Butter基础上再接再厉，新增了对Wi-Fi Display功能的支持。由此也导致整个显示架构发生了较大的变化。<br>本文首先介绍Wi-Fi Display的背景知识，然后再结合代码对Android 4.2中Wi-Fi Display的实现进行介绍。</p>
+        <p>#Android Wi-Fi Display（Miracast）介绍<br>2012年11月中旬，Google发布了Android 4.2。虽然它和android 4.1同属Jelly Bean系列，但却添加了很多新的功能。其中，在显示部分，Android 4.2在Project Butter基础上再接再厉，新增了对Wi-Fi Display功能的支持。由此也导致整个显示架构发生了较大的变化。<br>本文首先介绍Wi-Fi Display的背景知识，然后再结合代码对Android 4.2中Wi-Fi Display的实现进行介绍。</p>
 <p>##背景知识介绍<br>Wi-Fi Display经常和Miracast联系在一起。实际上，Miracast是Wi-Fi联盟（Wi-Fi Alliance）对支持Wi-Fi Display功能的设备的认证名称。通过Miracast认证的设备将在最大程度内保持对Wi-Fi Display功能的支持和兼容。由此可知，Miracast考察的就是Wi-Fi Display（本文后续将不再区分Miracast和Wi-Fi Display）。而Wi-Fi Display的核心功能就是让设备之间通过Wi-Fi无线网络来分享视音频数据。以一个简单的应用场景为例：有了Wi-Fi Display后，手机和电视机之间可以直接借助Wi-Fi，而无需硬连线（如HDMI）就可将手机中的视频投递到TV上去显示[①]。以目前智能设备的发展趋势来看，Wi-Fi Display极有可能在较短时间内帮助我们真正实现多屏互动。<br>从技术角度来说，Wi-Fi Display并非另起炉灶，而是充分利用了现有的Wi-Fi技术。图1所示为Wi-Fi Display中使用的其他Wi-Fi技术项。</p>
 <p><img src="http://img.my.csdn.net/uploads/201301/06/1357478712_8403.png" alt=""></p>
 <p>由图1可知，Miracast依赖的Wi-Fi技术项有：</p>
@@ -437,20 +448,27 @@
 </ul>
 <p>另外，Android的进化速度非常快，尤其在几个重要的功能点上。作者在此也希望国内的手机厂商或那些感兴趣的移动互联网厂商能真正投入力量做一些更有深度和价值的研发工作。</p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
@@ -458,483 +476,38 @@
       
 
       
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/27/安卓BLE开发/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹越">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="邹越的博客">
-    </span>
-
-    
-      <header class="post-header">
-
         
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/27/安卓BLE开发/" itemprop="url">安卓BLE开发</a></h1>
-        
+      
 
-        <div class="post-meta">
-          <span class="post-time">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-27T14:38:15+08:00">
-                2017-06-27
-              </time>
+              <a href="/2017/06/27/安卓BLE开发/" rel="next" title="安卓BLE开发">
+                <i class="fa fa-chevron-left"></i> 安卓BLE开发
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <h1 id="什么是BLE"><a href="#什么是BLE" class="headerlink" title="什么是BLE"></a>什么是BLE</h1><p>BLE全称Bluetooth Low Energy，即蓝牙低功耗。蓝牙4.0才支持BLE，蓝牙4.0向下兼容，包括传统蓝牙技术、高速技术和低耗能技术三种规格。主要用于手机与周边设备进行通信，当然也可以用于所有BLE设备之间的通信。使用BLE可以实现Android与iOS之间的蓝牙通信，而普通蓝牙却不可以。<br>BLE利用了许多技术来降低功耗，了解这些技术可以解决许多开发问题。下面分享一下我所了解的知识：</p>
-<h2 id="连接间隔"><a href="#连接间隔" class="headerlink" title="连接间隔"></a>连接间隔</h2><p>BLE采用可变的连接间隔，也就是两个事件之间的间隔，间隔时间以1.25ms为单位。<br>当有数据进行传输时，必须要等到下一个事件的发生。所以间隔时间越长，事件发生的频率也就越低，传输速率就越慢，功耗就越低，反之亦然。<br>当然它也有取值范围，连接间隔的值为6(7.5ms)~3200(4s)。android手机规定连接参数最小是8，即10毫秒。ios规定是16，即20毫秒。</p>
-<h2 id="数据包长度"><a href="#数据包长度" class="headerlink" title="数据包长度"></a>数据包长度</h2><p>BLE数据包的结构跟协议有关，这里就不分析了。<br>BLE数据包中有效数据的最大长度是27字节，但这27字节指的是BLE底层的协议包格式。<br>对于profile层的characteristic（后面会讲到），其最大的长度是20字节，也就是每个包最大的长度是20字节。</p>
-<h2 id="传输速度"><a href="#传输速度" class="headerlink" title="传输速度"></a>传输速度</h2><p>Android的BLE最快传输速度：20Byte/0.01s=2KB/s。<br>但有个原则：只在必要时（传输较大的数据），才缩短连接间隔。并且当数据传输完毕后，还原连接间隔。<br>因为缩短间隔会增大功耗，降低电池使用寿命。</p>
-<h2 id="组网方式"><a href="#组网方式" class="headerlink" title="组网方式"></a>组网方式</h2><p>蓝牙系统采用一种灵活的无基站的组网方式，使得一个蓝牙设备可同时与7个其它的蓝牙设备相连接。蓝牙系统的网络结构的拓扑结构有两种形式：微微网（piconet）和分布式网络（Scatternet）。<br>一个蓝牙网络由一个主设备和一个或多个从属设备组成，它们都与主设备的时间和跳频模式同步（以主设备的时钟和蓝牙设备的地址为准）。每个独立的同步蓝牙网络就被称为一个微微网（piconet），有一个主设备单元和最多7个从设备单元。<br>所以BLE支持两种角色，主设备（Master）和从设备（Slave）。Master可以同时与多个设备通信；Slave只能和一个Master通信。</p>
-<h2 id="BLE通信协议-GATT"><a href="#BLE通信协议-GATT" class="headerlink" title="BLE通信协议-GATT"></a>BLE通信协议-GATT</h2><p>GATT协议结构</p>
-<p>BLE技术是基于GATT进行通信的，GATT(Generic Attribute Profile)是一种属性传输协议，简单的讲可以认为是一种属性传输的应用层协议。它的结构非常简单：</p>
-<p>GATT结构图</p>
-<p><img src="http://img.blog.csdn.net/20170406164847889?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2FrZXJfamluZw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt=""></p>
-<p>结构的组成：</p>
-<ul>
-<li>每个BLE设备由多个Profile（GATT）组成</li>
-<li>每个Profile由多个的Service服务组成</li>
-<li>每个Service由多个Characteristic特征组成</li>
-<li>每个Characteristic由一个Value值和多个Descriptor描述组成<br>结构的用途：</li>
-</ul>
-<p>Service用于数据的分类<br>Characteristic用于存放属性<br>Value是Characteristic的属性值。而Descriptor则是对Value不同角度的描述和说明，所以有多个Descriptor<br>GATT基础知识</p>
-<p>GATT通信的双方是C/S关系。外设作为 GATT 服务端（Server），它维持了 ATT 的查找表以及 service 和 characteristic 的定义。中心设备是 GATT 客户端（Client），它向 Server 发起请求。需要注意的是，所有的通信事件，都是由客户端（也叫主设备，Master）发起，并且接收服务端（也叫从设备，Slave）的响应。</p>
-<p>GATT连接是独占的。也就是一个BLE外设同时只能被一个中心设备连接。一旦外设被连接，它就会马上停止广播，这样它就对其他设备不可见了。当设备断开，它又开始广播。</p>
-<p>Service、Characteristic和Descriptor均有一个唯一的UUID标识，UUID既有16位的也有128位的。16位的UUID是经过蓝牙组织认证的，是需要购买的，而128位的UUID则可以自定义，当然也有许多通用的UUID。</p>
-<p>##小结</p>
-<p>如果开发BLE的兄弟们直接去看官方Demo，肯定会有许多疑问。比如，这个方法什么时候回调、那个变量是干什么用的。希望开发者先通过本文了解一下BLE的工作流程，再着手撸代码，许多问题就会迎刃而解。</p>
-<p><a href="http://blog.csdn.net/saker_jing/article/details/69407786" title="转自SakerJing的博客" target="_blank" rel="external">http://blog.csdn.net/saker_jing/article/details/69407786</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/25/Mr-Blue-sky/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹越">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="邹越的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/25/Mr-Blue-sky/" itemprop="url">Nice to meet you,Mr Blue sky!</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-25T17:21:21+08:00">
-                2017-05-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="http://cdn.clickme.net/Gallery/2014/08/28/07826f521139b311a180a6d5fb7631d9.gif" alt="小树人"></p>
-<p><em>-SHARING-</em></p>
-<h2 id="雾霾笼罩下的大都市，Mr-Blue-Sky你在哪里？"><a href="#雾霾笼罩下的大都市，Mr-Blue-Sky你在哪里？" class="headerlink" title="雾霾笼罩下的大都市，Mr Blue Sky你在哪里？"></a>雾霾笼罩下的大都市，Mr Blue Sky你在哪里？</h2><h1 id="Mr-Blue-sky"><a href="#Mr-Blue-sky" class="headerlink" title="Mr Blue sky"></a><em>Mr Blue sky</em></h1><ul>
-<li>Sun is shinin’ in the sky</li>
-<li>太阳当空高照</li>
-<li>There ain’t a cloud in sight</li>
-<li>晴天万里无云</li>
-<li>It’s stopped rainin’</li>
-<li>阴雨连绵不再</li>
-<li>Everybody’s in their play</li>
-<li>人人笑逐颜开</li>
-<li>And don’t you know</li>
-<li>你可知道，It’s a beautiful new day</li>
-<li>今天这个日子</li>
-<li>妙哉，妙哉</li>
-<li>Hey hey hey</li>
-<li>嘿嘿嘿</li>
-<li>Runnin’ down the avenue pant</li>
-<li>沿着林荫大道走来</li>
-<li>See how the sun shines</li>
-<li>看太阳光芒万丈</li>
-<li>Brightly in the city</li>
-<li>阳光在城市散开</li>
-<li>On the streets where once was pity</li>
-<li>这些街道曾经很悲哀</li>
-<li>Mr  Blue Sky is living here today</li>
-<li>蓝天先生今天你与我们同在</li>
-<li>Hey  hey  hey</li>
-<li>嘿嘿嘿</li>
-<li>Mr  Blue Sky  please tell us why</li>
-<li>蓝天先生，请讲明白</li>
-<li>You had to hide away</li>
-<li>过去的你，为何离开</li>
-<li>For so long，so long, where did we go wrong</li>
-<li>我们做错了什么，要这样苦苦等待</li>
-<li>Mr  Blue Sky  please tell us why</li>
-<li>蓝天先生，请讲明白</li>
-<li>You had to hide away</li>
-<li>过去的你，为何离开</li>
-<li>For so long, so long, where did we go wrong</li>
-<li>我们做错了什么，要这样苦苦等待</li>
-<li>Hey  you with the pretty face</li>
-<li>嘿，你，美丽动人的那一位</li>
-<li>Welcome to the human race</li>
-<li>欢迎加入我们人类，A celebration</li>
-<li>一起来庆祝</li>
-<li>Mr  Blue Sky’s up there waitin’</li>
-<li>蓝天先生在天上迫不及待，And today</li>
-<li>我们期盼的日子</li>
-<li>Is the day we’ve waited for</li>
-<li>终于到来</li>
-<li>Oh  oh  oh</li>
-<li>噢噢噢</li>
-<li>Mr  Blue Sky  please tell us why</li>
-<li>蓝天先生，请讲明白</li>
-<li>You had to hide away</li>
-<li>过去的你，为何离开</li>
-<li>For so long, so long, where did we go wrong</li>
-<li>我们做错了什么，要这样苦苦等待</li>
-<li>Hey  there Mr  Blue</li>
-<li>嘿，蓝天先生</li>
-<li>We’re so pleased to be with you</li>
-<li>如今很荣幸与你同在</li>
-<li>Look around see what you do</li>
-<li>看看四周你带来的一切</li>
-<li>Everybody smiles at you</li>
-<li>人人冲你喜笑颜开</li>
-<li>Hey  there Mr  Blue We’re so</li>
-<li>嘿，蓝天先生</li>
-<li>Pleased to be with you</li>
-<li>我们很荣幸与你同在</li>
-<li>Look around see what you do</li>
-<li>看看四周你带来的一切</li>
-<li>Everybody smiles at you</li>
-<li>人人冲你喜笑颜开</li>
-<li>Mr  Blue  you did it right</li>
-<li>蓝天先生你真不赖</li>
-<li>But soon comes Mr  Night</li>
-<li>但是黑夜先生就要到来</li>
-<li>Creepin’ over</li>
-<li>哭哭啼啼</li>
-<li>Now his hand is on your shoulder</li>
-<li>把手往你肩上一甩</li>
-<li>Never mind  I’ll remember you this</li>
-<li>没关系，我会永远记住你</li>
-<li>I’ll remember you way this</li>
-<li>你的温暖，你的存在</li>
-<li>Mr  Blue Sky  please tell us why</li>
-<li>蓝天先生，请讲明白</li>
-<li>You had to hide away</li>
-<li>过去的你，为何离开</li>
-<li>For so long, so long, where did we go wrong</li>
-<li>我们做错了什么，要这样苦苦等待</li>
-<li>Hey  there Mr  Blue We’re so</li>
-<li>嘿，蓝天先生</li>
-<li>Pleased to be with you</li>
-<li>今天很荣幸与你同在</li>
-<li>Look around see what you do</li>
-<li>看看四周你带来的一切</li>
-<li>Everybody smiles at you</li>
-<li>人人冲你喜笑颜开</li>
-</ul>
-
-          
-        
+    <div class="post-spread">
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/25/run/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="邹越">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="邹越的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/25/run/" itemprop="url">小猪快跑</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-25T17:14:07+08:00">
-                2017-05-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="http://img.blog.csdn.net/20170525122650067?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2Q4Mzc2OTQwMzA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="小猪快跑"></p>
-<p>假如生活欺骗了你，不要悲伤，不要心急，没准是你活该呢。哈哈哈，一口毒奶。</p>
-<p><img src="http://anatole.munen.cc/assets/wallpaper-2572384.jpg" alt="LITTLE CAT"></p>
-<p><img src="http://anatole.munen.cc/assets/wallpaper-2311325.jpg" alt="LITTLE GIRL"></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
@@ -942,6 +515,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -1135,6 +712,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
 
   
 
