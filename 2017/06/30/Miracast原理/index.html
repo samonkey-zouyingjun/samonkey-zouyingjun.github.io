@@ -1,0 +1,813 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="WiFi Display," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Android Wi-Fi Display（Miracast）介绍2012年11月中旬，Google发布了Android 4.2。虽然它和android 4.1同属Jelly Bean系列，但却添加了很多新的功能。其中，在显示部分，Android 4.2在Project Butter基础上再接再厉，新增了对Wi-Fi Display功能的支持。由此也导致整个显示架构发生了较大的变化。本文首先介绍W">
+<meta name="keywords" content="WiFi Display">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Miracast原理">
+<meta property="og:url" content="http://yoursite.com/2017/06/30/Miracast原理/index.html">
+<meta property="og:site_name" content="邹越的博客">
+<meta property="og:description" content="Android Wi-Fi Display（Miracast）介绍2012年11月中旬，Google发布了Android 4.2。虽然它和android 4.1同属Jelly Bean系列，但却添加了很多新的功能。其中，在显示部分，Android 4.2在Project Butter基础上再接再厉，新增了对Wi-Fi Display功能的支持。由此也导致整个显示架构发生了较大的变化。本文首先介绍W">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478712_8403.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478739_2291.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478758_9825.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478788_3356.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478805_4074.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478824_6904.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478840_5925.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478857_7139.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478872_3803.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478888_7208.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478903_7919.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478917_9353.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478917_9353.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478932_9334.png">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478945_6837.png">
+<meta property="og:updated_time" content="2017-07-27T08:43:18.243Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Miracast原理">
+<meta name="twitter:description" content="Android Wi-Fi Display（Miracast）介绍2012年11月中旬，Google发布了Android 4.2。虽然它和android 4.1同属Jelly Bean系列，但却添加了很多新的功能。其中，在显示部分，Android 4.2在Project Butter基础上再接再厉，新增了对Wi-Fi Display功能的支持。由此也导致整个显示架构发生了较大的变化。本文首先介绍W">
+<meta name="twitter:image" content="http://img.my.csdn.net/uploads/201301/06/1357478712_8403.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/30/Miracast原理/"/>
+
+
+
+
+
+  <title>Miracast原理 | 邹越的博客</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">邹越的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">小猪快跑</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/30/Miracast原理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹越">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="邹越的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Miracast原理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-30T16:06:37+08:00">
+                2017-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Android-Wi-Fi-Display（Miracast）介绍"><a href="#Android-Wi-Fi-Display（Miracast）介绍" class="headerlink" title="Android Wi-Fi Display（Miracast）介绍"></a>Android Wi-Fi Display（Miracast）介绍</h1><p>2012年11月中旬，Google发布了Android 4.2。虽然它和android 4.1同属Jelly Bean系列，但却添加了很多新的功能。其中，在显示部分，Android 4.2在Project Butter基础上再接再厉，新增了对Wi-Fi Display功能的支持。由此也导致整个显示架构发生了较大的变化。<br>本文首先介绍Wi-Fi Display的背景知识，然后再结合代码对Android 4.2中Wi-Fi Display的实现进行介绍。</p>
+<h2 id="背景知识介绍"><a href="#背景知识介绍" class="headerlink" title="背景知识介绍"></a>背景知识介绍</h2><p>Wi-Fi Display经常和Miracast联系在一起。实际上，Miracast是Wi-Fi联盟（Wi-Fi Alliance）对支持Wi-Fi Display功能的设备的认证名称。通过Miracast认证的设备将在最大程度内保持对Wi-Fi Display功能的支持和兼容。由此可知，Miracast考察的就是Wi-Fi Display（本文后续将不再区分Miracast和Wi-Fi Display）。而Wi-Fi Display的核心功能就是让设备之间通过Wi-Fi无线网络来分享视音频数据。以一个简单的应用场景为例：有了Wi-Fi Display后，手机和电视机之间可以直接借助Wi-Fi，而无需硬连线（如HDMI）就可将手机中的视频投递到TV上去显示[①]。以目前智能设备的发展趋势来看，Wi-Fi Display极有可能在较短时间内帮助我们真正实现多屏互动。<br>从技术角度来说，Wi-Fi Display并非另起炉灶，而是充分利用了现有的Wi-Fi技术。图1所示为Wi-Fi Display中使用的其他Wi-Fi技术项。</p>
+<p><img src="http://img.my.csdn.net/uploads/201301/06/1357478712_8403.png" alt=""></p>
+<p>由图1可知，Miracast依赖的Wi-Fi技术项有：</p>
+<ul>
+<li>Wi-Fi Direct，也就是Wi-Fi P2P。它支持在没有AP（Access Point）的情况下，两个Wi-Fi设备直连并通信。</li>
+<li>Wi-Fi Protected Setup：用于帮助用户自动配置Wi-Fi网络、添加Wi-Fi设备等。</li>
+<li>11n/WMM/WPA2：其中，11n就是802.11n协议，它将11a和11g提供的Wi-Fi传输速率从56Mbps提升到300甚至600Mbps。WMM是Wi-Fi Multimedia的缩写，是一种针对实时视音频数据的QoS服务。而WPA2意为Wi-Fi Protected Acess第二版，主要用来给传输的数据进行加密保护。</li>
+</ul>
+<p>上述的Wi-Fi技术中，绝大部分功能由硬件厂商实现。而在Android中，对Miracast来说最重要的是两个基础技术：</p>
+<ul>
+<li>Wi-Fi Direct：该功能由Android中的WifiP2pService来管理和控制。</li>
+<li>Wi-Fi Multimedia：为了支持Miracast，Android 4.2对MultiMedia系统也进行了修改。</li>
+</ul>
+<p>下边我们对Miracast几个重要知识点进行介绍，首先是拓扑结构和视音频格式方面的内容。<br>Miracast一个重要功能就是支持Wi-Fi Direct。但它也考虑了无线网络环境中存在AP设备的情况下，设备之间的互联问题。读者可参考如图2所示的四种拓扑结构。</p>
+<p><img src="http://img.my.csdn.net/uploads/201301/06/1357478739_2291.png" alt=""></p>
+<p>在Wi-Fi Display规范中，还存在着Source将Video和Audio内容分别传送给不同Render Device的情况.另外，Miracast对所支持的视音频格式也进行了规定:</p>
+<ul>
+<li>分辨率<br>17种 CEA格式，分辨率从640<em>480到1920</em>1080，帧率从24到60<br>29种VESA格式，分辨率从800<em>600到1920</em>1200，帧率从30到60<br>12种手持设备格式，分辨率从640<em>360到960</em>540，帧率从30到60</li>
+<li>视频<br>H.264高清<br>音频<br>必选：LPCM 16bits，48kHz采样率，双声道<br>可选：<br>LPCM 16bits，44.1kHz采样率，双声道<br>Advanced Audio coding<br>Dolby Advanced Codec 3</li>
+</ul>
+<p>最后，我们简单介绍一下Miracast的大体工作流程。Miracast以session为单位来管理两个设备之间的交互的工作，主要步骤包括（按顺序）：</p>
+<ul>
+<li>Device Discovery：通过Wi-Fi P2P来查找附近的支持Wi-Fi P2P的设备。</li>
+<li>Device Selection：当设备A发现设备B后，A设备需要提示用户。用户可根据需要选择是否和设备B配对。</li>
+<li>Connection Setup：Source和Display设备之间通过Wi-Fi P2P建立连接。根据Wi-Fi Direct技术规范，这个步骤包括建立一个Group Owner和一个Client。此后，这两个设备将建立一个TCP连接，同时一个用于RTSP协议的端口将被创建用于后续的Session管理和控制工作。</li>
+<li>Capability Negotiation：在正式传输视音频数据前，Source和Display设备需要交换一些Miracast参数信息，例如双方所支持的视音频格式等。二者协商成功后，才能继续后面的流程。</li>
+<li>Session Establishment and streaming：上一步工作完成后，Source和Display设备将建立一个Miracast Session。而后就可以开始传输视音频数据。Source端的视音频数据将经由MPEG2TS编码后通过RTP协议传给Display设备。Display设备将解码收到的数据，并最终显示出来。</li>
+<li>User Input back channel setup：这是一个可选步骤。主要用于在传输过程中处理用户发起的一些控制操作。这些控制数据将通过TCP在Source和Display设备之间传递。</li>
+<li>Payload Control：传输过程中，设备可根据无线信号的强弱，甚至设备的电量状况来动态调整传输数据和格式。可调整的内容包括压缩率，视音频格式，分辨率等内容。</li>
+<li>Session teardown：停止整个Session。</li>
+</ul>
+<p>通过对上面背景知识的介绍，读者可以发现：</p>
+<ul>
+<li>Miracast本质就是一个基于Wi-Fi的网络应用。这个应用包括服务端和客户端。</li>
+<li>服务端和客户端必须支持RTP/RTSP等网络协议和相应的编解码技术。</li>
+</ul>
+<h2 id="Android-4-2-Miracast功能实现介绍"><a href="#Android-4-2-Miracast功能实现介绍" class="headerlink" title="Android 4.2 Miracast功能实现介绍"></a>Android 4.2 Miracast功能实现介绍</h2><p>Miracast的Android实现涉及到系统的多个模块，包括：</p>
+<ul>
+<li>MediaPlayerService及相关模块：原因很明显，因为Miracast本身就牵扯到RTP/RTSP及相应的编解码技术。</li>
+<li>SurfaceFlinger及相关模块：SurfaceFlinger的作用是将各层UI数据混屏并投递到显示设备中去显示。现在，SurfaceFlinger将支持多个显示设备。而支持Miracast的远端设备也做为一个独立的显示设备存在于系统中。</li>
+<li>WindowManagerService及相关模块：WindowManagerService用于管理系统中各个UI层的位置和属性。由于并非所有的UI层都会通过Miracast投递到远端设备上。例如手机中的视频可投递到远端设备上去显示，但假如在播放过程中，突然弹出一个密码输入框（可能是某个后台应用程序发起的），则这个密码输入框就不能投递到远端设备上去显示。所以，WindowManagerService也需要修改以适应Miracast的需要。</li>
+<li>DisplayManagerService及相关模块：DisplayManagerService服务是Android 4.2新增的，用于管理系统中所有的Display设备。</li>
+</ul>
+<p>由于篇幅原因，本文将重点关注SurfaceFlinger和DisplayManagerService以及Miracast的动态工作流程。<br>相比前面的版本，Android 4.2中SurfaceFlinger的最大变化就是增加了一个名为DisplayDevice的抽象层。<br><img src="http://img.my.csdn.net/uploads/201301/06/1357478758_9825.png" alt=""></p>
+<p>可知：</p>
+<ul>
+<li>Surface系统定义了一个DisplayType的枚举，其中有代表手机屏幕的DISPLAY_PRIMARY和代表HDMI等外接设备的DISPLAY_EXTERNAL。比较有意思的是，作为Wi-Fi Display，它的设备类型是DISPLAY_VIRTUAL。</li>
+<li>再来看SurfaceFlinger类，其内部有一个名为mDisplays的变量，它保存了系统中当前所有的显示设备（DisplayDevice）。另外，SurfaceFlinger通过mCurrentState和mDrawingState来控制显示层的状态。其中，mDrawingState用来控制当前正在绘制的显示层的状态，mCurrentState表示当前所有显示层的状态。有这两种State显示层的原因是不论是Miracast还是HDMI设备，其在系统中存在的时间是不确定的。例如用户可以随时选择连接一个Miracast显示设备。为了不破坏当前正在显示的内容，这个新显示设备的一些信息将保存到CurrentState中。等到SurfaceFlinger下次混屏前再集中处理。</li>
+<li>mCurrentState和mDrawingState的类型都是SurfaceFlinger的内部类State。由图3可知，State首先通过layerSortedByZ变量保存了一个按Z轴排序的显示层数组（在Android中，显示层的基类是LayerBase），另外还通过displays变量保存了每个显示层对应的DisplayDeviceState。</li>
+<li>DisplayDeviceState的作用是保存对应显示层的DisplayDevice的属性以及一个ISurfaceTexure接口。这个接口最终将传递给DisplayDevice。<br>DisplayDevice代表显示设备，它有两个重要的变量，一个是mFrameBufferSurface和mNativeWindow。mFrameBufferSurace是FrameBufferSurface类型，当显示设备不属于VIRTUAL类型的话，则该变量不为空。对于Miracast来说，显示数据是通过网络传递给真正的显示设备的，所有在Source端的SurfaceFlinger来说，就不存在FrameBuffer。故当设备为VIRTUAL时，其对应的mFrameBufferSurface就为空。而ANativeWindow是Android显示系统的老员工了。该结构体在多媒体的视频I/O、OpenGL ES等地方用得较多。而在普通的UI绘制中，ISurfaceTexture接口用得较多。不过早在Android 2.3，Google开发人员就通过函数指针将ANativeWindow的各项操作和ISurfaceTexture接口统一起来。</li>
+</ul>
+<p>作为VIRTUAL的Miracast设备是如何通过DisplayDevice这一层抽象来加入到Surface系统中来的呢？下面这段代码对理解DisplayDevice的抽象作用极为重要</p>
+<p><img src="http://img.my.csdn.net/uploads/201301/06/1357478788_3356.png" alt=""></p>
+<p>可知：</p>
+<ul>
+<li>对于非Virtual设备，DisplayDevice的FrameBufferSurface不为空。而且SurfaceTextureClient的构造参数来自于FrameBufferSurface的getBufferQueue函数。</li>
+<li>如果是Virtual设备，SurfaceTextureClient直接使用了State信息中携带的surface变量。</li>
+</ul>
+<p>凭着上面这两点不同，我们可以推测出如图5所示的DisplayDevice的作用:<br><img src="http://img.my.csdn.net/uploads/201301/06/1357478805_4074.png" alt=""></p>
+<p>最后再来看一下SurfaceFlinger中混屏操作的实现:</p>
+<p><img src="http://img.my.csdn.net/uploads/201301/06/1357478824_6904.png" alt=""></p>
+<p>SurfaceFlinger将遍历系统中所有的DisplayDevice来完成各自的混屏工作。</p>
+<h2 id="Framework对Miracast的支持"><a href="#Framework对Miracast的支持" class="headerlink" title="Framework对Miracast的支持"></a>Framework对Miracast的支持</h2><p>为了彻底解决多显示设备的问题，Android 4.2干脆在Framework中新增了一个名为DisplayManagerService的服务，用来统一管理系统中的显示设备。DisplayManagerService和系统其它几个服务都有交互。整体结构如图:<br><img src="http://img.my.csdn.net/uploads/201301/06/1357478840_5925.png" alt=""><br>可知：</p>
+<ul>
+<li>DisplayManagerService主要实现了IDisplayManager接口。这个接口的大部分函数都和Wi-Fi Display操作相关。</li>
+<li>另外，DisplayManagerService和WindowManagerService交互紧密。因为WindowManagerService管理系统所有UI显示，包括属性，Z轴位置等等。而且，WindowManagerService是系统内部和SurfaceFlinger交互的重要通道。</li>
+<li>DisplayManagerService通过mDisplayAdapters来和DisplayDevice交互。每一个DisplayDevice都对应有一个DisplayAdapter。</li>
+<li>系统定义了四种DisplayAdapter。HeadlessDisplayAdapter和OverlayDisplayAdapter针对的都是Fake设备。其中OverlayDisplay用于帮助开发者模拟多屏幕之用。LocalDisplayAdapter代表主屏幕，而WifiDisplayAdapter代表Wi-Fi Display。</li>
+</ul>
+<h2 id="Android中Miracast动态工作流程介绍"><a href="#Android中Miracast动态工作流程介绍" class="headerlink" title="Android中Miracast动态工作流程介绍"></a>Android中Miracast动态工作流程介绍</h2><p>当用户从Settings程序中选择开启Miracast并找到匹配的Device后，系统将通过WifiDisplayController的requestConnect函数向匹配设备发起连接。<br><img src="http://img.my.csdn.net/uploads/201301/06/1357478857_7139.png" alt=""><br>最终将调用connect函数去连接指定的设备。connect函数比较中，其中最重要的是updateConnection函数，我们抽取其中部分代码来看:<br><img src="http://img.my.csdn.net/uploads/201301/06/1357478872_3803.png" alt=""></p>
+<p>系统创建了一个RemoteDisplay，并在这个Display上监听（listen）。从注释中可知，该RemoteDisplay就是和远端Device交互的RTP/RTSP通道。而且，一旦有远端Device连接上，还会通过onDisplayConnected返回一个Surface对象。<br>根据前面对SurfaceFlinger的介绍，读者可以猜测出Miracast的重头好戏就在RemoteDisplay以及它返回的这个Surface上了。<br>确实如此，RemoteDisplay将调用MediaPlayerService的listenForRemoteDisplay函数，最终会得到一个Native的RemoteDisplay对象。</p>
+<p><img src="http://img.my.csdn.net/uploads/201301/06/1357478888_7208.png" alt=""></p>
+<p>RemoteDisplay有三个重要成员变量：</p>
+<ul>
+<li>mLooper，指向一个ALooper对象。这表明RemoteDisplay是一个基于消息派发和处理的系统。</li>
+<li>mNetSession指向一个ANetWorkSession对象。从它的API来看，ANetworkSession提供大部分的网络操作。</li>
+<li>mSource指向一个WifiDisplaySource对象。它从AHandler派生，故它就是mLooper中消息的处理者。注意，图中的M1、M3、M5等都是Wi-Fi Display技术规范中指定的消息名。</li>
+</ul>
+<p>RemoteDisplay构造函数中，WifiDisplaySource的start函数将被调用。如此，一个类型为kWhatStart的消息被加到消息队列中。该消息最终被WifiDisplaySource处理，结果是一个RTSPServer被创建。<br><img src="http://img.my.csdn.net/uploads/201301/06/1357478903_7919.png" alt=""></p>
+<p>以后，客户端发送的数据都将通过类型为kWhatRTSPNotify的消息加入到系统中来。而这个消息的处理核心在onReceiveClientData函数中，它囊括了设备之间网络交互的所有细节。<br><img src="http://img.my.csdn.net/uploads/201301/06/1357478917_9353.png" alt=""></p>
+<p>以后，客户端发送的数据都将通过类型为kWhatRTSPNotify的消息加入到系统中来。而这个消息的处理核心在onReceiveClientData函数中，它囊括了设备之间网络交互的所有细节。</p>
+<p><img src="http://img.my.csdn.net/uploads/201301/06/1357478917_9353.png" alt=""></p>
+<p>根据前面的背景知识介绍，设备之间的交互将由Session来管理。在代码中，Session的概念由WifiSource的内部类PlaybackSession来表示。先来看和其相关的类图结构:<br><img src="http://img.my.csdn.net/uploads/201301/06/1357478932_9334.png" alt=""></p>
+<p>可知：</p>
+<ul>
+<li>PlaybackSession及其内部类Track都从AHandler派生。故它们的工作也依赖于消息循环和处理。Track代表视频流或音频流。</li>
+<li>Track内部通过mMediaPull变量指向一个MediaPull对象。而MediaPull对象则保存了一个MediaSource对象。在PlaybackSession中，此MediaSource的真正类型为SurfaceMediaSource。它表明该Media的源来自Surface。</li>
+<li>BufferQueue从ISurfaceTexure中派生，根据前面对SurfaceFlinger的介绍，它就是SurfaceFlinger代码示例中代表虚拟设备的State的surface变量。</li>
+</ul>
+<p>当双方设备准备就绪后，MediaPull会通过kWhatPull消息处理不断调用MediaSource的read函数。在SurfaceMediaSource实现的read函数中，来自SurfaceFlinger的混屏后的数据经由BufferQueue传递到MediaPull中。<br><img src="http://img.my.csdn.net/uploads/201301/06/1357478945_6837.png" alt=""></p>
+<p>可知：</p>
+<ul>
+<li>MediaPull通过kWhatPull消息不断调用MediaSource的read函数。</li>
+<li>SurfaceMediaSource的read函数由通过mBufferQueue来读取数据。</li>
+</ul>
+<p>那么mBufferQueue的数据来自什么地方呢？对，正是来自图4的SurfaceFlinger。<br>当然，PlaybackSession拿到这些数据后还需要做编码，然后才能发送给远端设备。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文对Miracast的背景知识以及Android系统中Miracast的实现进行了一番简单介绍。从笔者个人角度来看，有以下几个点值得感兴趣的读者注意：</p>
+<ul>
+<li>一定要结合Wi-Fi的相关协议去理解Miracast。重点关注的协议包括Wi-Fi P2p和WMM。</li>
+<li>Android Miracast的实现中，需要重点理解SurfaceFlinger和RemoteDisplay模块。这部分的实现不仅代码量大，而且类之间，以及线程之间关系复杂。</li>
+<li>其他需要注意的点就是DisplayManagerService及相关模块。这部分内容在SDK中有相关API。应用开发者应关注这些新API是否能帮助自己开发出更有新意的应用程序。</li>
+</ul>
+<p>另外，Android的进化速度非常快，尤其在几个重要的功能点上。作者在此也希望国内的手机厂商或那些感兴趣的移动互联网厂商能真正投入力量做一些更有深度和价值的研发工作。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/WiFi-Display/" rel="tag"># WiFi Display</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/27/安卓BLE开发/" rel="next" title="安卓BLE开发">
+                <i class="fa fa-chevron-left"></i> 安卓BLE开发
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/02/视频H264编码/" rel="prev" title="视频H264编码">
+                视频H264编码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="邹越" />
+          <p class="site-author-name" itemprop="name">邹越</p>
+           
+              <p class="site-description motion-element" itemprop="description">打开hexo世界的大门</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-Wi-Fi-Display（Miracast）介绍"><span class="nav-number">1.</span> <span class="nav-text">Android Wi-Fi Display（Miracast）介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景知识介绍"><span class="nav-number">1.1.</span> <span class="nav-text">背景知识介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-4-2-Miracast功能实现介绍"><span class="nav-number">1.2.</span> <span class="nav-text">Android 4.2 Miracast功能实现介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Framework对Miracast的支持"><span class="nav-number">1.3.</span> <span class="nav-text">Framework对Miracast的支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android中Miracast动态工作流程介绍"><span class="nav-number">1.4.</span> <span class="nav-text">Android中Miracast动态工作流程介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邹越</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

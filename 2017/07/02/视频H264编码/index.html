@@ -1,0 +1,716 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="H264," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="随着无线网络和智能手机的发展，智能手机与人们日常生活联系越来越紧密，娱乐、商务应用、金融应用、交通出行各种功能的软件大批涌现，使得人们的生活丰富多彩、快捷便利，也让它成为人们生活中不可取代的一部分。其中，多媒体由于其直观性和实时性，应用范围越来越广，视频的解码与播放也就成为研究的热点。H.264标准技术日渐成熟，采用了统一的VLC符号编码，高精度、多模式的位移估计，基于4×4块的整数变换、分层的编">
+<meta name="keywords" content="H264">
+<meta property="og:type" content="article">
+<meta property="og:title" content="视频H264编码">
+<meta property="og:url" content="http://yoursite.com/2017/07/02/视频H264编码/index.html">
+<meta property="og:site_name" content="邹越的博客">
+<meta property="og:description" content="随着无线网络和智能手机的发展，智能手机与人们日常生活联系越来越紧密，娱乐、商务应用、金融应用、交通出行各种功能的软件大批涌现，使得人们的生活丰富多彩、快捷便利，也让它成为人们生活中不可取代的一部分。其中，多媒体由于其直观性和实时性，应用范围越来越广，视频的解码与播放也就成为研究的热点。H.264标准技术日渐成熟，采用了统一的VLC符号编码，高精度、多模式的位移估计，基于4×4块的整数变换、分层的编">
+<meta property="og:updated_time" content="2017-07-27T08:43:36.005Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="视频H264编码">
+<meta name="twitter:description" content="随着无线网络和智能手机的发展，智能手机与人们日常生活联系越来越紧密，娱乐、商务应用、金融应用、交通出行各种功能的软件大批涌现，使得人们的生活丰富多彩、快捷便利，也让它成为人们生活中不可取代的一部分。其中，多媒体由于其直观性和实时性，应用范围越来越广，视频的解码与播放也就成为研究的热点。H.264标准技术日渐成熟，采用了统一的VLC符号编码，高精度、多模式的位移估计，基于4×4块的整数变换、分层的编">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/02/视频H264编码/"/>
+
+
+
+
+
+  <title>视频H264编码 | 邹越的博客</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">邹越的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">小猪快跑</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/02/视频H264编码/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="邹越">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="邹越的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">视频H264编码</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-02T16:37:22+08:00">
+                2017-07-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>随着无线网络和智能手机的发展，智能手机与人们日常生活联系越来越紧密，娱乐、商务应用、金融应用、交通出行各种功能的软件大批涌现，使得人们的生活丰富多彩、快捷便利，也让它成为人们生活中不可取代的一部分。其中，多媒体由于其直观性和实时性，应用范围越来越广，视频的解码与播放也就成为研究的热点。<br>H.264标准技术日渐成熟，采用了统一的VLC符号编码，高精度、多模式的位移估计，基于4×4块的整数变换、分层的编码语法等。这些措施使得H.264算法具有很高的编码效率，在相同的重建图像质量下，能够比H.263节约50％左右的码率。而且H.264的码流结构网络适应性强，增加了差错恢复能力。正好适用于带宽受限，差错率高的无线网络。<br>本文结合ffmpeg开源代码中的解码方法，采用多线程接收数据包，多级缓冲数据，接收和解码并行双线程操作等方法，缓解了由于传输的数据量大、速度快而导致的数据堵塞、解码出错、视频画面迟钝、延迟等问题。使得h.264视频的传输速度快，稳定性好。最终实现了pc端到android手机端的视频传输，以及在android手机端的解码播放。<br>该技术可以应用于视频会议、视频监控等应用中。</p>
+<h2 id="一、-H-264视频传输播放系统的总体结构"><a href="#一、-H-264视频传输播放系统的总体结构" class="headerlink" title="一、 H.264视频传输播放系统的总体结构"></a>一、 H.264视频传输播放系统的总体结构</h2><p>H.264视频传输播放系统分为服务器端和客户端2个部分，服务器端负责读取H.264的视频数据，并且以RTP/RTCP格式打包发送给客户端，并且接受客户端的反馈，对传输速度等作相应的控制。Android手机客户端主要完成从服务器端接收实时码流数据，经过缓冲，进行视频数据解析，然后送去解码，最后在手机上显示播放。服务器端采用c语言实现，客户端主要用java语言实现。</p>
+<h2 id="二、关键技术及其实现"><a href="#二、关键技术及其实现" class="headerlink" title="二、关键技术及其实现"></a>二、关键技术及其实现</h2><h3 id="1-基于RTP协议的打包及解包"><a href="#1-基于RTP协议的打包及解包" class="headerlink" title="1.基于RTP协议的打包及解包"></a>1.基于RTP协议的打包及解包</h3><h4 id="（1）单个NAL打包"><a href="#（1）单个NAL打包" class="headerlink" title="（1）单个NAL打包"></a>（1）单个NAL打包</h4><p>H.264NALU单元常由[start code][NALU header][NALU payload]三部分组成，其中start code 用于标志一个NALU单元的开始，必须是“00000001”或者是“000001”，打包时去掉开始码，把其他数据打包到RTP包就可以了。</p>
+<h4 id="（2）分片打包"><a href="#（2）分片打包" class="headerlink" title="（2）分片打包"></a>（2）分片打包</h4><p>由于1500个字节是IP数据报的长度的上限，去除20个字节的数据报首部，1480字节是用来存放UDP数据报的。所以当一帧中的字节数超过这个数值时，我们必须将其分片打包。而且UDP在传输的过程中也要由包头开销，所以将RTP包的最大字节数定位1400字节。<br>需要分片的包格式有所区别，首先说明下分片的格式：<br>FU指示字节有以下格式：<br><br>+—————+ <br><br>|0|1|2|3|4|5|6|7|<br><br>+-+-+-+-+-+-+-+-+<br><br>|F|NRI| Type |<br><br>+—————+<br><br>FU指示字节的类型28，29表示FU-A和FU-B。NRI域的值必须根据要分片的NAL单元NRI的值设置。<br><br>FU头的格式如下：<br><br>+—————+<br><br>|0|1|2|3|4|5|6|7|<br><br>+-+-+-+-+-+-+-+-+<br><br>|S|E|R| Type |<br><br>+—————+<br></p>
+<p>S：开始位(1bit)，当设置为1，开始位指示分片NAL单元的开始。第一个分片包设为1，其他的分片设置为0。<br>E：结束位(1bit)，当设置为1，结束位指示分片NAL单元的结束，即，FU荷载是最后分片时设置为1，其他时候设置为0。<br>R：保留位(1bit)，必须设置为0。<br>Type：5bit</p>
+<h4 id="（3）打包和解包的流程分析："><a href="#（3）打包和解包的流程分析：" class="headerlink" title="（3）打包和解包的流程分析："></a>（3）打包和解包的流程分析：</h4><p>打包：</p>
+<p>分片时详细说明：</p>
+<ul>
+<li>①第一个FU-A包的FU indicator 是这么设置的：F=NALU头中的F，NRI=NALU头中的NRI，Type=28 FU header: S=1，E=0，R=0，Type=NALU头中的Type；</li>
+<li>②中间的FU-A包的FU indicator是这么设置的：F=NALU头中的F，NRI=NALU头中的NRI，Type=28 FU header: S=0，E=0，R=0，Type=NALU头中的Type；</li>
+<li>③尾FU-A包的FU indicator是这么设置的：F=NALU头中的F，NRI=NALU头中的NRI，Type=28 FU header: S=0，E=1，R=0，Type=NALU头中的Type。</li>
+</ul>
+<p>解包：<br>下面我们针对RTP解包时对待分片进行分类的代码实现做分析：<br>byte startBit=(byte)(recbuf[13]&amp;0x80); byte endBit=(byte)(recbuf[13]&amp;0x40);</p>
+<ul>
+<li>①如果，startBit==-128，这包是分片的首包。<br>NalBuf[4]=(byte) ((recbuf[12]&amp;0xE0)+(recbuf[13]&amp;0x1F)); 这句用于重建组合NAL单元类型</li>
+<li>②如果(startBit==0)&amp;&amp;(endBit==0)，这包是分片的中间部分。</li>
+<li>③如果 endBit==64 ，这包是分片尾部。<br>当分类清楚，就可以对各部分做相应的处理，如图中分析的那样。<h3 id="2-码流管理机制"><a href="#2-码流管理机制" class="headerlink" title="2.码流管理机制"></a>2.码流管理机制</h3><h4 id="1-码流的接收。"><a href="#1-码流的接收。" class="headerlink" title="(1) 码流的接收。"></a>(1) 码流的接收。</h4>在发送端码流发送很快的情况下，由于接收端不仅要接收码流，还要进行分析，解码，这个处理需要一个较长的过程，如果接收端顺序执行这个过程的话，会导致无法完整接收发送端的包、出现丢包，由此而带来的是解码错误、无法正常播放视频、甚至程序奔溃等严重错误。针对这个问题我们采取并发的处理机制予以解决。线程并发存在的一个意义就是为了提高运行在单处理器上的速度。在java中我们采用java.util.concurrent包中的执行器（Executor）来管理线程Thread对象。我们创建20个线程，也就是向SingleThreadExecutor提交了20个任务，这些任务将排好队，每个任务会在下一个任务开始之前运行结束，每个任务都是按照他们被提交的顺序，在下一个任务开始之前完成。这样不仅实现了快速的接收而且还保证了接收到的包顺序是正确的。通过这样的处理后，接收和分析解码可以被分成两个部分，我们可以把接收到的数据暂时存放在缓冲区，然后就可以接着去接收下一包数据，不用等着分析、解码完成后才去接收下一包数据。这样做大大提高了接收效率，同时避免了丢包问题。<h4 id="2-视频数据解析和解码。"><a href="#2-视频数据解析和解码。" class="headerlink" title="(2) 视频数据解析和解码。"></a>(2) 视频数据解析和解码。</h4>由于采用了并发的机制，接收到的数据不止一包，所以对接收到的数据应该做怎样合理的处理，成为我们接下来的难点。我们需要保证的仍然是数据包的顺序，还且每次只能处理一包，这里涉及到一个线程之间的协作问题。我们采用消费者生产者这种线程协作模式来做处理。我们将从存放数据的缓冲区中按顺序取到的包经过分析后放入另外一个缓冲区，通知解码程序可以进行从此缓冲区中获得数据解码，然后分析视频数据的程序进入等待。解码完成后，通知分析视频数据的程序继续进行视频数据分析，同时解码程序又进入等待。两个程序在执行和等待中交替进行。</li>
+</ul>
+<h4 id="3-多级缓冲机制"><a href="#3-多级缓冲机制" class="headerlink" title="(3) 多级缓冲机制"></a>(3) 多级缓冲机制</h4><p>上面我们也提到了几个缓冲，总结如下。</p>
+<ul>
+<li>①接收后存放数据的缓冲，由于服务器端源源不断的实时码流，和采用了并发机制后带来更大量的数据，我们不可能马上处理完，所以必须设置一个缓冲区。</li>
+<li>②接收端和处理端之间的缓冲，由于网络不稳定，接收到的数据可能会有时快有时慢，这直接会造成解码的不稳定和视频播放的不连续，所以在此设置一个缓冲，起到一个平滑，过渡的作用，这个缓冲区既要存放接收到大量的码流还要为视频数据分析提供数据，有个写读入和读出的过程，所以我们使用先入先出的队列Queue容器来做缓冲区。</li>
+<li>③解析和解码过程之间的缓冲，由于在此过程中的数据量相较而言不是很大，而这个获取数据的速度直接影响了解码的速度，所以我们要用一个高效的缓冲区来担当此时的缓冲作用，由于stack是由系统自动分配，所以速度比较快，所以我们就在栈上分配一个数组用于存储即可。</li>
+<li>④解码后到播放之间的缓冲，这个缓冲区同样除了起到使播放视频连续稳定的作用外，主要就是用来显示图像，还可以对视频图像进行一些处理工作，平滑，滤波等。<h3 id="3-解码和播放的实现"><a href="#3-解码和播放的实现" class="headerlink" title="3.解码和播放的实现"></a>3.解码和播放的实现</h3>H.264解码是移植了ffmpeg 中的H.264解码部分到Android，并且了深度删减优化。界面部分，文件接收处理以及视频显示都是用java做的，底层的视频解码部分则使用C来做从而满足速度的要求。H.264码流分割NAl（接受到视频数据的复原工作）是在java层做而没有分装到c中，是因为每次送的数据会受到限制，如果送的数据量大，底层可能会一次解码好几帧视频，但是到界面层只能显示一帧，造成丢帧。如果每次送的数据量较少，就会使得多次底层调用但并没有进行实质解码的现象发生，所以尽管这样做耦合度差些，速度慢些，但是综合考虑还是将数据分析工作放在java层完成。</li>
+</ul>
+<p>我们将解码后的视频数据用bitmap显示，draw到surfaceView的方法显示到手机屏上，由于有些手机不支持rgb24但几乎所有手机都支持rgb565，所以解码后返回的是rgb565数据。</p>
+<h2 id="三、结束语"><a href="#三、结束语" class="headerlink" title="三、结束语"></a>三、结束语</h2><p>本文完整的设计并实现了从pc端到android手机端的H.264视频传输与解码播放功能。详细的分析了实现中的技术要点和难点，详细分析了rtp打包，解包的流程，针对发送数据快而处理速度慢的问题，采用多线程并发机制予以解决，面对大量，而且不稳定的数据包，针对各个环节的特点，设置了多级缓冲。使得视频播放更加流畅、平稳。对于分析和解码的先后次序问题，采用线程协作的思想，利用消费者，生产者模式，保证了视频数据的时序性。另外对于解码部分，则利用现有解码方法进行平台移植，合理处理c层和java层的分工，并以实现了这个完整的功能。在网络状况好的情况下，android手机端视频播放延时短，播放流畅，平稳。本文技术研究可以运用到视频播放的各个应用中，有着很强的实用价值。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/H264/" rel="tag"># H264</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/30/Miracast原理/" rel="next" title="Miracast原理">
+                <i class="fa fa-chevron-left"></i> Miracast原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="邹越" />
+          <p class="site-author-name" itemprop="name">邹越</p>
+           
+              <p class="site-description motion-element" itemprop="description">打开hexo世界的大门</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、-H-264视频传输播放系统的总体结构"><span class="nav-number">1.</span> <span class="nav-text">一、 H.264视频传输播放系统的总体结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、关键技术及其实现"><span class="nav-number">2.</span> <span class="nav-text">二、关键技术及其实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-基于RTP协议的打包及解包"><span class="nav-number">2.1.</span> <span class="nav-text">1.基于RTP协议的打包及解包</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）单个NAL打包"><span class="nav-number">2.1.1.</span> <span class="nav-text">（1）单个NAL打包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）分片打包"><span class="nav-number">2.1.2.</span> <span class="nav-text">（2）分片打包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（3）打包和解包的流程分析："><span class="nav-number">2.1.3.</span> <span class="nav-text">（3）打包和解包的流程分析：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-码流管理机制"><span class="nav-number">2.2.</span> <span class="nav-text">2.码流管理机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-码流的接收。"><span class="nav-number">2.2.1.</span> <span class="nav-text">(1) 码流的接收。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-视频数据解析和解码。"><span class="nav-number">2.2.2.</span> <span class="nav-text">(2) 视频数据解析和解码。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-多级缓冲机制"><span class="nav-number">2.2.3.</span> <span class="nav-text">(3) 多级缓冲机制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-解码和播放的实现"><span class="nav-number">2.3.</span> <span class="nav-text">3.解码和播放的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、结束语"><span class="nav-number">3.</span> <span class="nav-text">三、结束语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">邹越</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
