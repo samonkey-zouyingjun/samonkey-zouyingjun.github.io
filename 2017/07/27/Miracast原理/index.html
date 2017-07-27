@@ -90,12 +90,12 @@
 
 
 
-<meta name="description" content="#Android Wi-Fi Display（Miracast）介绍2012年11月中旬，Google发布了Android 4.2。虽然它和android 4.1同属Jelly Bean系列，但却添加了很多新的功能。其中，在显示部分，Android 4.2在Project Butter基础上再接再厉，新增了对Wi-Fi Display功能的支持。由此也导致整个显示架构发生了较大的变化。本文首先介绍">
+<meta name="description" content="Android Wi-Fi Display（Miracast）介绍2012年11月中旬，Google发布了Android 4.2。虽然它和android 4.1同属Jelly Bean系列，但却添加了很多新的功能。其中，在显示部分，Android 4.2在Project Butter基础上再接再厉，新增了对Wi-Fi Display功能的支持。由此也导致整个显示架构发生了较大的变化。本文首先介绍W">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Miracast原理">
 <meta property="og:url" content="http://yoursite.com/2017/07/27/Miracast原理/index.html">
 <meta property="og:site_name" content="邹越的博客">
-<meta property="og:description" content="#Android Wi-Fi Display（Miracast）介绍2012年11月中旬，Google发布了Android 4.2。虽然它和android 4.1同属Jelly Bean系列，但却添加了很多新的功能。其中，在显示部分，Android 4.2在Project Butter基础上再接再厉，新增了对Wi-Fi Display功能的支持。由此也导致整个显示架构发生了较大的变化。本文首先介绍">
+<meta property="og:description" content="Android Wi-Fi Display（Miracast）介绍2012年11月中旬，Google发布了Android 4.2。虽然它和android 4.1同属Jelly Bean系列，但却添加了很多新的功能。其中，在显示部分，Android 4.2在Project Butter基础上再接再厉，新增了对Wi-Fi Display功能的支持。由此也导致整个显示架构发生了较大的变化。本文首先介绍W">
 <meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478712_8403.png">
 <meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478739_2291.png">
 <meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478758_9825.png">
@@ -111,10 +111,10 @@
 <meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478917_9353.png">
 <meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478932_9334.png">
 <meta property="og:image" content="http://img.my.csdn.net/uploads/201301/06/1357478945_6837.png">
-<meta property="og:updated_time" content="2017-07-27T08:30:19.204Z">
+<meta property="og:updated_time" content="2017-07-27T08:32:23.755Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Miracast原理">
-<meta name="twitter:description" content="#Android Wi-Fi Display（Miracast）介绍2012年11月中旬，Google发布了Android 4.2。虽然它和android 4.1同属Jelly Bean系列，但却添加了很多新的功能。其中，在显示部分，Android 4.2在Project Butter基础上再接再厉，新增了对Wi-Fi Display功能的支持。由此也导致整个显示架构发生了较大的变化。本文首先介绍">
+<meta name="twitter:description" content="Android Wi-Fi Display（Miracast）介绍2012年11月中旬，Google发布了Android 4.2。虽然它和android 4.1同属Jelly Bean系列，但却添加了很多新的功能。其中，在显示部分，Android 4.2在Project Butter基础上再接再厉，新增了对Wi-Fi Display功能的支持。由此也导致整个显示架构发生了较大的变化。本文首先介绍W">
 <meta name="twitter:image" content="http://img.my.csdn.net/uploads/201301/06/1357478712_8403.png">
 
 
@@ -343,8 +343,8 @@
       
 
       
-        <p>#Android Wi-Fi Display（Miracast）介绍<br>2012年11月中旬，Google发布了Android 4.2。虽然它和android 4.1同属Jelly Bean系列，但却添加了很多新的功能。其中，在显示部分，Android 4.2在Project Butter基础上再接再厉，新增了对Wi-Fi Display功能的支持。由此也导致整个显示架构发生了较大的变化。<br>本文首先介绍Wi-Fi Display的背景知识，然后再结合代码对Android 4.2中Wi-Fi Display的实现进行介绍。</p>
-<p>##背景知识介绍<br>Wi-Fi Display经常和Miracast联系在一起。实际上，Miracast是Wi-Fi联盟（Wi-Fi Alliance）对支持Wi-Fi Display功能的设备的认证名称。通过Miracast认证的设备将在最大程度内保持对Wi-Fi Display功能的支持和兼容。由此可知，Miracast考察的就是Wi-Fi Display（本文后续将不再区分Miracast和Wi-Fi Display）。而Wi-Fi Display的核心功能就是让设备之间通过Wi-Fi无线网络来分享视音频数据。以一个简单的应用场景为例：有了Wi-Fi Display后，手机和电视机之间可以直接借助Wi-Fi，而无需硬连线（如HDMI）就可将手机中的视频投递到TV上去显示[①]。以目前智能设备的发展趋势来看，Wi-Fi Display极有可能在较短时间内帮助我们真正实现多屏互动。<br>从技术角度来说，Wi-Fi Display并非另起炉灶，而是充分利用了现有的Wi-Fi技术。图1所示为Wi-Fi Display中使用的其他Wi-Fi技术项。</p>
+        <h1 id="Android-Wi-Fi-Display（Miracast）介绍"><a href="#Android-Wi-Fi-Display（Miracast）介绍" class="headerlink" title="Android Wi-Fi Display（Miracast）介绍"></a>Android Wi-Fi Display（Miracast）介绍</h1><p>2012年11月中旬，Google发布了Android 4.2。虽然它和android 4.1同属Jelly Bean系列，但却添加了很多新的功能。其中，在显示部分，Android 4.2在Project Butter基础上再接再厉，新增了对Wi-Fi Display功能的支持。由此也导致整个显示架构发生了较大的变化。<br>本文首先介绍Wi-Fi Display的背景知识，然后再结合代码对Android 4.2中Wi-Fi Display的实现进行介绍。</p>
+<h2 id="背景知识介绍"><a href="#背景知识介绍" class="headerlink" title="背景知识介绍"></a>背景知识介绍</h2><p>Wi-Fi Display经常和Miracast联系在一起。实际上，Miracast是Wi-Fi联盟（Wi-Fi Alliance）对支持Wi-Fi Display功能的设备的认证名称。通过Miracast认证的设备将在最大程度内保持对Wi-Fi Display功能的支持和兼容。由此可知，Miracast考察的就是Wi-Fi Display（本文后续将不再区分Miracast和Wi-Fi Display）。而Wi-Fi Display的核心功能就是让设备之间通过Wi-Fi无线网络来分享视音频数据。以一个简单的应用场景为例：有了Wi-Fi Display后，手机和电视机之间可以直接借助Wi-Fi，而无需硬连线（如HDMI）就可将手机中的视频投递到TV上去显示[①]。以目前智能设备的发展趋势来看，Wi-Fi Display极有可能在较短时间内帮助我们真正实现多屏互动。<br>从技术角度来说，Wi-Fi Display并非另起炉灶，而是充分利用了现有的Wi-Fi技术。图1所示为Wi-Fi Display中使用的其他Wi-Fi技术项。</p>
 <p><img src="http://img.my.csdn.net/uploads/201301/06/1357478712_8403.png" alt=""></p>
 <p>由图1可知，Miracast依赖的Wi-Fi技术项有：</p>
 <ul>
@@ -380,7 +380,7 @@
 <li>Miracast本质就是一个基于Wi-Fi的网络应用。这个应用包括服务端和客户端。</li>
 <li>服务端和客户端必须支持RTP/RTSP等网络协议和相应的编解码技术。</li>
 </ul>
-<p>##Android 4.2 Miracast功能实现介绍<br>Miracast的Android实现涉及到系统的多个模块，包括：</p>
+<h2 id="Android-4-2-Miracast功能实现介绍"><a href="#Android-4-2-Miracast功能实现介绍" class="headerlink" title="Android 4.2 Miracast功能实现介绍"></a>Android 4.2 Miracast功能实现介绍</h2><p>Miracast的Android实现涉及到系统的多个模块，包括：</p>
 <ul>
 <li>MediaPlayerService及相关模块：原因很明显，因为Miracast本身就牵扯到RTP/RTSP及相应的编解码技术。</li>
 <li>SurfaceFlinger及相关模块：SurfaceFlinger的作用是将各层UI数据混屏并投递到显示设备中去显示。现在，SurfaceFlinger将支持多个显示设备。而支持Miracast的远端设备也做为一个独立的显示设备存在于系统中。</li>
@@ -406,14 +406,14 @@
 <p>最后再来看一下SurfaceFlinger中混屏操作的实现:</p>
 <p><img src="http://img.my.csdn.net/uploads/201301/06/1357478824_6904.png" alt=""></p>
 <p>SurfaceFlinger将遍历系统中所有的DisplayDevice来完成各自的混屏工作。</p>
-<p>##Framework对Miracast的支持<br>为了彻底解决多显示设备的问题，Android 4.2干脆在Framework中新增了一个名为DisplayManagerService的服务，用来统一管理系统中的显示设备。DisplayManagerService和系统其它几个服务都有交互。整体结构如图:<br><img src="http://img.my.csdn.net/uploads/201301/06/1357478840_5925.png" alt=""><br>可知：</p>
+<h2 id="Framework对Miracast的支持"><a href="#Framework对Miracast的支持" class="headerlink" title="Framework对Miracast的支持"></a>Framework对Miracast的支持</h2><p>为了彻底解决多显示设备的问题，Android 4.2干脆在Framework中新增了一个名为DisplayManagerService的服务，用来统一管理系统中的显示设备。DisplayManagerService和系统其它几个服务都有交互。整体结构如图:<br><img src="http://img.my.csdn.net/uploads/201301/06/1357478840_5925.png" alt=""><br>可知：</p>
 <ul>
 <li>DisplayManagerService主要实现了IDisplayManager接口。这个接口的大部分函数都和Wi-Fi Display操作相关。</li>
 <li>另外，DisplayManagerService和WindowManagerService交互紧密。因为WindowManagerService管理系统所有UI显示，包括属性，Z轴位置等等。而且，WindowManagerService是系统内部和SurfaceFlinger交互的重要通道。</li>
 <li>DisplayManagerService通过mDisplayAdapters来和DisplayDevice交互。每一个DisplayDevice都对应有一个DisplayAdapter。</li>
 <li>系统定义了四种DisplayAdapter。HeadlessDisplayAdapter和OverlayDisplayAdapter针对的都是Fake设备。其中OverlayDisplay用于帮助开发者模拟多屏幕之用。LocalDisplayAdapter代表主屏幕，而WifiDisplayAdapter代表Wi-Fi Display。</li>
 </ul>
-<p>##Android中Miracast动态工作流程介绍<br>当用户从Settings程序中选择开启Miracast并找到匹配的Device后，系统将通过WifiDisplayController的requestConnect函数向匹配设备发起连接。<br><img src="http://img.my.csdn.net/uploads/201301/06/1357478857_7139.png" alt=""><br>最终将调用connect函数去连接指定的设备。connect函数比较中，其中最重要的是updateConnection函数，我们抽取其中部分代码来看:<br><img src="http://img.my.csdn.net/uploads/201301/06/1357478872_3803.png" alt=""></p>
+<h2 id="Android中Miracast动态工作流程介绍"><a href="#Android中Miracast动态工作流程介绍" class="headerlink" title="Android中Miracast动态工作流程介绍"></a>Android中Miracast动态工作流程介绍</h2><p>当用户从Settings程序中选择开启Miracast并找到匹配的Device后，系统将通过WifiDisplayController的requestConnect函数向匹配设备发起连接。<br><img src="http://img.my.csdn.net/uploads/201301/06/1357478857_7139.png" alt=""><br>最终将调用connect函数去连接指定的设备。connect函数比较中，其中最重要的是updateConnection函数，我们抽取其中部分代码来看:<br><img src="http://img.my.csdn.net/uploads/201301/06/1357478872_3803.png" alt=""></p>
 <p>系统创建了一个RemoteDisplay，并在这个Display上监听（listen）。从注释中可知，该RemoteDisplay就是和远端Device交互的RTP/RTSP通道。而且，一旦有远端Device连接上，还会通过onDisplayConnected返回一个Surface对象。<br>根据前面对SurfaceFlinger的介绍，读者可以猜测出Miracast的重头好戏就在RemoteDisplay以及它返回的这个Surface上了。<br>确实如此，RemoteDisplay将调用MediaPlayerService的listenForRemoteDisplay函数，最终会得到一个Native的RemoteDisplay对象。</p>
 <p><img src="http://img.my.csdn.net/uploads/201301/06/1357478888_7208.png" alt=""></p>
 <p>RemoteDisplay有三个重要成员变量：</p>
@@ -440,7 +440,7 @@
 <li>SurfaceMediaSource的read函数由通过mBufferQueue来读取数据。</li>
 </ul>
 <p>那么mBufferQueue的数据来自什么地方呢？对，正是来自图4的SurfaceFlinger。<br>当然，PlaybackSession拿到这些数据后还需要做编码，然后才能发送给远端设备。</p>
-<p>##总结<br>本文对Miracast的背景知识以及Android系统中Miracast的实现进行了一番简单介绍。从笔者个人角度来看，有以下几个点值得感兴趣的读者注意：</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文对Miracast的背景知识以及Android系统中Miracast的实现进行了一番简单介绍。从笔者个人角度来看，有以下几个点值得感兴趣的读者注意：</p>
 <ul>
 <li>一定要结合Wi-Fi的相关协议去理解Miracast。重点关注的协议包括Wi-Fi P2p和WMM。</li>
 <li>Android Miracast的实现中，需要重点理解SurfaceFlinger和RemoteDisplay模块。这部分的实现不仅代码量大，而且类之间，以及线程之间关系复杂。</li>
@@ -538,8 +538,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -592,6 +601,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Android-Wi-Fi-Display（Miracast）介绍"><span class="nav-number">1.</span> <span class="nav-text">Android Wi-Fi Display（Miracast）介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景知识介绍"><span class="nav-number">1.1.</span> <span class="nav-text">背景知识介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-4-2-Miracast功能实现介绍"><span class="nav-number">1.2.</span> <span class="nav-text">Android 4.2 Miracast功能实现介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Framework对Miracast的支持"><span class="nav-number">1.3.</span> <span class="nav-text">Framework对Miracast的支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android中Miracast动态工作流程介绍"><span class="nav-number">1.4.</span> <span class="nav-text">Android中Miracast动态工作流程介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
